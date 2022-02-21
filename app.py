@@ -19,6 +19,7 @@ task_cols = {'age1': [30,40,50,60],
 'transition2': [0,1,2,3],
 'transition3': [0,1,2,3],
 }
+task_files = []
 
 @app.route('/')
 @app.route('/index')
@@ -36,21 +37,31 @@ def set_new_user():
 
 @app.route('/task', methods=['GET'])
 def get_task():
+    global task_files
     task_name = request.args.get('name')
-    # task_path = os.path.join('./', 'images', task_name)
-    task_files = [task_name + '/orig.png']
-    task_files.extend(random_generator(task_name))
-
+    count = request.args.get('count')
+    task_files = ['images/' + task_name + '/orig.png']
+    if (int(count) == 1):
+        task_files.extend(random_generator(task_name, True))
+    else:
+        task_files.extend(random_generator(task_name, False))
+    
     return jsonify(task_files)
 
-def random_generator(task_name):
+@app.route('/<int:idx>')
+def get_task_image(idx):
+    return task_files[idx]
+
+def random_generator(task_name, inversion=False):
     algs = ['w', 'w+']
     rand10 = random.randint(0,1)
     comp_alg = algs[rand10]
-    
-    col = random.randint(0,len(task_cols[task_name])-1)
-    col = task_cols[task_name][col]
-    tasks = [task_name+'/'+comp_alg+'_'+str(col)+'.png', task_name+'/w++_'+str(col)+'.png']
+    if (inversion):
+        col = 'inv'
+    else:
+        col = random.randint(0,len(task_cols[task_name])-1)
+        col = task_cols[task_name][col]
+    tasks = ['images/' + task_name+'/'+comp_alg+'_'+str(col)+'.png', 'images/' + task_name+'/w++_'+str(col)+'.png']
 
     rand01 = random.randint(0,1)
 

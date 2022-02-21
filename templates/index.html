@@ -30,7 +30,7 @@
         <button id="reset" class="reset-button" onclick="newUser()">New</button>
         <button id="reset" class="reset-button" onclick="reset()">Reset</button>
         
-        <select id="task-type" name="task-type" onchange="sendTask(this)">
+        <select id="task-type" name="task-type" onchange="onSelection(this)">
           <option value="placehoder" selected disabled hidden>------none------</option>
           <optgroup label="age">
             <option value="age1">Age1</option>
@@ -55,45 +55,45 @@
     </div>
     <div class="images">
       <div class="original-image image">
-        <img src="images/age1/aging1_orig.png" alt="Original image" width="200" height="200"> 
+        <img src="" alt="Original image" width="200" height="200"> 
       </div>
       <div class="alg1 image">
-        <img src="images/age1/aging1_w_20.png" alt="Algorithm1" width="200" height="200">
+        <img src="" alt="Algorithm1" width="200" height="200">
       </div>
       <div class="alg2 image">
-        <img src="images/age1/aging1_w++_20.png" alt="Algorithm2" width="200" height="200">
+        <img src="" alt="Algorithm2" width="200" height="200">
       </div>
       <div class="previous btn">
-        <button style="font-size:14px">
-          Prev <i class="fa fa-angle-double-left"></i>
+        <button style="font-size:14px" onclick="prevTask()">
+          Previous <i class="fa fa-angle-double-left"></i>
         </button>
       </div>
       <div class="download btn">
         <button id="download-data">download</button>
       </div>
       <div class="next btn">
-        <button style="font-size:14px">
-          Next <i class="fa fa-angle-double-right"></i>
+        <button style="font-size:14px" onclick="nextTask()">
+          Next (<span id="task-count">0</span>) <i class="fa fa-angle-double-right"></i>
         </button>
       </div>
     </div>
     <div class="user-actions">
       <div class="selections">
         Which is better
-        <form action="" method="post">
-          <input type="radio" name="judge" id="judge1" value="left"> <label for="judge1">The middle one</label><br>
-          <input type="radio" name="judge" id="judge2" value="right"> <label for="judge2">The right one</label><br>
-          <input type="radio" name="judge" id="judge3" value="same"> <label for="judge3">Not sure</label><br>
+        <form id="judge-better">
+          <input type="radio" name="judge" id="judge1" value="left" onclick="judgeBetter(this.value)"> <label for="judge1">The middle one</label><br>
+          <input type="radio" name="judge" id="judge2" value="right" onclick="judgeBetter(this.value)"> <label for="judge2">The right one</label><br>
+          <input type="radio" name="judge" id="judge3" value="unsure" onclick="judgeBetter(this.value)"> <label for="judge3">Not sure</label><br>
         </form>
       </div>
       <div class="comments">
-        <form action="" method="post">
+        <form id="get-comments">
           <label for="image-comment">Your comments for images</label>
-          <textarea type="text" id="image-comment" name="image-comment" rows="12" cols="25"></textarea>
+          <textarea type="text" id="image-comments" name="image-comments" input="getComments(this.value)" rows="12" cols="25"></textarea>
         </form>
       </div>
       <div class="submission">
-        <button id="submit-data">submit</button>
+        <button id="submit-data" onclick="submitTaskData()">submit</button>
       </div>
     </div>
 
