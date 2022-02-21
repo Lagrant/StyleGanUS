@@ -1,0 +1,77 @@
+.container {  display: grid;
+  grid-template-columns: 0.4fr 2.2fr 0.4fr;
+  grid-template-rows: 0.5fr 2fr 0.5fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". title ."
+    "panel images user-actions"
+    ". download .";
+}
+
+.images {  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.45fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "original-image alg1 alg2";
+  grid-area: images;
+}
+
+.original-image { grid-area: original-image; }
+
+.alg1 { grid-area: alg1; }
+
+.alg2 { grid-area: alg2; }
+
+.image {text-align: center;}
+
+.panel {  display: grid;
+  grid-template-columns: 0fr 1.5fr 0fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". user-study-intro ."
+    ". task ."
+    ". task-description .";
+  grid-area: panel;
+}
+
+.user-study-intro { grid-area: user-study-intro; }
+
+.task { 
+  grid-area: task; 
+  padding-top: 15px;
+}
+
+.task-description { grid-area: task-description; }
+
+.user-actions {  display: grid;
+  grid-template-columns: 0fr 1fr 0fr;
+  grid-template-rows: 0.6fr 1.4fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". selections ."
+    ". comments ."
+    ". submission .";
+  grid-area: user-actions;
+}
+
+.reset-button { margin-bottom: 15px; }
+
+.comments { grid-area: comments; }
+
+.selections { grid-area: selections; }
+
+.submission { grid-area: submission;}
+
+.title { grid-area: title;
+  text-align: center;
+}
+
+.title-name {font-size: 30px;}
+
+.download { padding-top: 250px; }

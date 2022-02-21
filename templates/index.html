@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Study</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}" type="text/css">
+    <script src="{{ url_for('static', filename='scripts/controller.js') }}"></script>
+  </head>
+
+  <div class="container">
+    <div class="title">
+      <strong class="title-name">Style Gan W++ User Study</strong>
+    </div>
+    <div class="panel">
+      <div class="user-study-intro">
+        The left image is the original image and the right two are generated from algorithms.
+        Your task is to determine a more reasonable one according to our task.
+      </div>
+      <div class="task">
+        <button id="reset" class="reset-button">reset</button>
+        
+        <select name="task-type">
+          <option value="placehoder" selected disabled hidden>------none------</option>
+          <optgroup label="age">
+            <option value="age1">Age1</option>
+            <option value="age2">Age2</option>
+            <option value="age3">Age3</option>
+          </optgroup>
+          <optgroup label="smile">
+            <option value="smile1">Smile1</option>
+            <option value="smile2">Smile2</option>
+            <option value="smile3">Smile3</option>
+          </optgroup>
+          <optgroup label="transition">
+            <option value="transition1">Transition1</option>
+            <option value="transition2">Transition2</option>
+            <option value="transition3">Transition3</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="description">
+
+      </div>
+    </div>
+    <div class="images">
+      <div class="original-image image">
+        <img src="images/age1/aging1_orig.png" alt="Original image" width="200" height="200"> 
+      </div>
+      <div class="alg1 image">
+        <img src="images/age1/aging1_w_20.png" alt="Algorithm1" width="200" height="200">
+      </div>
+      <div class="alg2 image">
+        <img src="images/age1/aging1_w++_20.png" alt="Algorithm2" width="200" height="200">
+      </div>
+      <div class="previous btn">
+        <button style="font-size:14px">
+          Prev <i class="fa fa-angle-double-left"></i>
+        </button>
+      </div>
+      <div class="download btn">
+        <button id="download-data">download</button>
+      </div>
+      <div class="next btn">
+        <button style="font-size:14px">
+          Next <i class="fa fa-angle-double-right"></i>
+        </button>
+      </div>
+    </div>
+    <div class="user-actions">
+      <div class="selections">
+        Which is better
+        <form action="" method="post">
+          <input type="radio" name="judge" id="judge1" value="left"> <label for="judge1">The middle one</label><br>
+          <input type="radio" name="judge" id="judge2" value="right"> <label for="judge2">The right one</label><br>
+          <input type="radio" name="judge" id="judge3" value="same"> <label for="judge3">Not sure</label><br>
+        </form>
+      </div>
+      <div class="comments">
+        <form action="" method="post">
+          <label for="image-comment">Your comments for images</label>
+          <textarea type="text" id="image-comment" name="image-comment" rows="12" cols="25"></textarea>
+        </form>
+      </div>
+      <div class="submission">
+        <button id="submit-data">submit</button>
+      </div>
+    </div>
+
+    
+  </div>
+</html>
