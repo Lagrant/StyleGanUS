@@ -105,13 +105,14 @@ var nextTask = function () {
             curList[curList.length-1].taskImgs[0] === taskInfo.taskImgs[0] && 
             curList[curList.length-1].taskImgs[1] === taskInfo.taskImgs[1] &&
             curList[curList.length-1].taskImgs[2] === taskInfo.taskImgs[2]) {
-                userData[taskInfo.taskName][userData[taskInfo.taskName].length-1] = taskInfo;
-                pivot.right(userData[taskInfo.taskName].length+1);
-            } else {
-                userData[taskInfo.taskName].push(taskInfo);
 
-                pivot.right(userData[taskInfo.taskName].length+1);
-            }
+            userData[taskInfo.taskName][userData[taskInfo.taskName].length-1] = taskInfo;
+            pivot.right(userData[taskInfo.taskName].length+1);
+        } else {
+            userData[taskInfo.taskName].push(taskInfo);
+
+            pivot.right(userData[taskInfo.taskName].length+1);
+        }
     }
     var choices = $('#judge-better').find('input');
     for (let i = 0; i < choices.length; i++) {
@@ -208,14 +209,49 @@ var submitTaskData = function () {
         alert('You need to specify your task first.');
         return;
     }
-    userData[taskInfo.taskName].push(taskInfo);
+    // userData[taskInfo.taskName].push(taskInfo);
+    curList = userData[taskInfo.taskName];
+    if (curList.length > 0 &&
+        curList[curList.length-1].taskImgs[0] === taskInfo.taskImgs[0] && 
+        curList[curList.length-1].taskImgs[1] === taskInfo.taskImgs[1] &&
+        curList[curList.length-1].taskImgs[2] === taskInfo.taskImgs[2]) {
+        userData[taskInfo.taskName][userData[taskInfo.taskName].length-1] = taskInfo;
+    } else if (taskInfo.judge !== '') {
+        userData[taskInfo.taskName].push(taskInfo);
+    }
 
     $.ajax({
         type: 'POST',
         url: '/saveuserdata',
         contentType: 'application/json; charset=UTF-8',
-        data: userData 
-    })
+        data: JSON.stringify(userData),
+        success: function (res) {
+            alert('Successfully submitted.');
+            return;
+        },
+        error: function () {
+            alert('Fail to submit data.');
+            return;
+        }
+    });
 
     reset();
+}
+
+var downloadUserData = function () {
+    var d = new Date();
+    var time = d.getFullYear() + "_" + d.getMonth() + "_" + d.getDate() + "_" + d.getHours() + "_" + d.getMinutes() + "_" + d.getSeconds();
+
+    var text = JSON.stringify(userData);
+
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:application/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', 'output_' + time + '.json');
+    element.setAttribute('id', 'downloadit')
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+    
+    document.body.removeChild(element);
 }

@@ -4,6 +4,7 @@ from werkzeug import Response
 
 import os
 import random
+import string
 
 app = Flask(__name__)
 log = app.logger
@@ -66,3 +67,12 @@ def random_generator(task_name, inversion=False):
     rand01 = random.randint(0,1)
 
     return [tasks[rand01], tasks[1-rand01]]
+
+@app.route('/saveuserdata', methods=['POST'])
+def save_user_data():
+    S = 10
+    file_name = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S)) + '.json'
+    with open(os.path.join('./users', user_name, file_name), 'w') as f:    
+        json.dump(json.loads(request.get_data()), f)
+    
+    return Response('Successfully saved user data', status=200)
