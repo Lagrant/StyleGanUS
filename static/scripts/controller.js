@@ -5,16 +5,6 @@ $(document).ready(function() {
     $('#image-comments')[0].addEventListener('input', getComments);
 })
 
-var userData = {age1: [], age2: [], age3: [],
-smile1: [], smile2: [], smile13: [],
-transition1: [], transition2: [], transition3: []}
-
-var taskInfo = {
-    taskName: '',
-    taskImgs: '',
-    judge: '',
-    comments: '',
-}
 
 var pivot = (function () {
     var lower = 1, upper = 1;
@@ -56,6 +46,7 @@ var onSelection = function (ob) {
 
     var taskOb = $(ob)[0];
     taskInfo.taskName = taskOb.options[taskOb.selectedIndex].value;
+    $('#task-descrip').html(task_descriptions[taskInfo.taskName]);
     sendTask(taskInfo.taskName, 1);
 }
 
@@ -146,12 +137,13 @@ var sendTask = function (taskName, firstTime=0) {
 }
 
 var reset = function () {
-    orig_img.children[0].src = '';
-    alg1_img.children[0].src = '';
-    alg2_img.children[0].src = '';
+    orig_img.children[0].src = '/static/images/none.png';
+    alg1_img.children[0].src = '/static/images/none.png';
+    alg2_img.children[0].src = '/static/images/none.png';
     for (tsk in userData) {
         userData[tsk] = [];
     }
+    $('#task-type')[0].value='placehoder';
 
     taskConfigReset();
 }
@@ -166,7 +158,8 @@ var taskConfigReset = function () {
     for (let i = 0; i < choices.length; i++) {
         choices[i].checked = false;
     }
-    pivot.reset()
+    pivot.reset();
+    $('#task-descrip').html('');
 }
 
 var newUser = function () {

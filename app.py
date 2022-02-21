@@ -20,7 +20,6 @@ task_cols = {'age1': [30,40,50,60],
 'transition2': [0,1,2,3],
 'transition3': [0,1,2,3],
 }
-task_files = []
 
 @app.route('/')
 @app.route('/index')
@@ -38,20 +37,12 @@ def set_new_user():
 
 @app.route('/task', methods=['GET'])
 def get_task():
-    global task_files
     task_name = request.args.get('name')
-    count = request.args.get('count')
+    first = int(request.args.get('count'))  # if it's the first task, if so, the task should be inversion
     task_files = ['images/' + task_name + '/orig.png']
-    if (int(count) == 1):
-        task_files.extend(random_generator(task_name, True))
-    else:
-        task_files.extend(random_generator(task_name, False))
+    task_files.extend(random_generator(task_name, first == 1))
     
     return jsonify(task_files)
-
-@app.route('/<int:idx>')
-def get_task_image(idx):
-    return task_files[idx]
 
 def random_generator(task_name, inversion=False):
     algs = ['w', 'w+']

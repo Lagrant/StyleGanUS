@@ -13,6 +13,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}" type="text/css">
+    <script src="{{ url_for('static', filename='scripts/common.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/controller.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/utilities.js') }}"></script>
   </head>
@@ -21,7 +22,7 @@
     <div class="title">
       <strong class="title-name">Style Gan W++ User Study</strong>
     </div>
-    <div class="panel">
+    <div class="panel middle-row">
       <div class="user-study-intro">
         The left image is the original image and the right two are generated from algorithms.
         Your task is to determine a more reasonable one according to our task.
@@ -53,31 +54,36 @@
 
       </div>
     </div>
-    <div class="images">
+    <div class="images middle-row">
       <div class="original-image image">
-        <img src="" alt="Original image" width="200" height="200"> 
+        <img src="/static/images/none.png" alt="Original image" width="200" height="200"> 
       </div>
       <div class="alg1 image">
-        <img src="" alt="Algorithm1" width="200" height="200">
+        <img src="/static/images/none.png" alt="Algorithm1" width="200" height="200">
       </div>
       <div class="alg2 image">
-        <img src="" alt="Algorithm2" width="200" height="200">
+        <img src="/static/images/none.png" alt="Algorithm2" width="200" height="200">
       </div>
       <div class="previous btn">
         <button style="font-size:14px" onclick="prevTask()">
           Previous <i class="fa fa-angle-double-left"></i>
         </button>
       </div>
-      <div class="download btn">
-        <button id="download-data" onclick="downloadUserData()">download</button>
-      </div>
+      <div></div>
+      <!-- <div class="task-descrip" id="description">
+        This is a description for each task and figures you see.
+      </div> -->
+
       <div class="next btn">
         <button style="font-size:14px" onclick="nextTask()">
           Next (<span id="task-count">0</span>) <i class="fa fa-angle-double-right"></i>
         </button>
       </div>
     </div>
-    <div class="user-actions">
+    <div class="download btn">
+      <button id="download-data" onclick="downloadUserData()">download</button>
+    </div>
+    <div class="user-actions middle-row">
       <div class="selections">
         Which is better
         <form id="judge-better">
@@ -98,5 +104,8 @@
     </div>
 
     
+  </div>
+  <div class="task-descrip" id="task-descrip">
+    This is a description for each task and figures you see.
   </div>
 </html>

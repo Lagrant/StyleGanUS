@@ -1,6 +1,6 @@
 .container {  display: grid;
   grid-template-columns: 0.4fr 2.2fr 0.4fr;
-  grid-template-rows: 0.5fr 2fr 0.5fr;
+  grid-template-rows: 0.35fr 2fr 0.35fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
@@ -25,7 +25,9 @@
 
 .alg2 { grid-area: alg2; }
 
-.image {text-align: center;}
+.image {  text-align: center;
+  /* height: 400px; */
+}
 
 .panel {  display: grid;
   grid-template-columns: 0fr 1.5fr 0fr;
@@ -37,12 +39,12 @@
     ". task ."
     ". task-description .";
   grid-area: panel;
+  /* height: 400px; */
 }
 
 .user-study-intro { grid-area: user-study-intro; }
 
-.task { 
-  grid-area: task; 
+.task { grid-area: task; 
   padding-top: 15px;
 }
 
@@ -58,7 +60,10 @@
     ". comments ."
     ". submission .";
   grid-area: user-actions;
+  /* height: 400px; */
 }
+
+.middle-row { height: 450px;}
 
 .reset-button { margin-bottom: 15px; }
 
@@ -70,8 +75,20 @@
 
 .title { grid-area: title;
   text-align: center;
+  height: 120px;
 }
 
 .title-name {font-size: 30px;}
 
-.download { padding-top: 250px; }
+.task-descrip { padding-top: 50px;
+  width: 650px;
+  height: 150px;
+  position: absolute;
+  top: 350px;
+  z-index: 1;
+  left: 500px;
+}
+
+.download { grid-area: download; }
+
+.previous, .next { height: 50px; }
