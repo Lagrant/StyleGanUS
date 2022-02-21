@@ -80,13 +80,14 @@
 
 .title-name {font-size: 30px;}
 
-.task-descrip { padding-top: 50px;
-  width: 650px;
-  height: 150px;
+.task-descrip { padding-top: 25px;
+  width: 750px;
+  height: 200px;
   position: absolute;
   top: 350px;
-  z-index: 1;
-  left: 500px;
+  padding-left: 15px;
+  /* z-index: 1; */
+  /* left: 500px; */
 }
 
 .download { grid-area: download; }
