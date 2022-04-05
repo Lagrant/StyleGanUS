@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Study</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/intro.css') }}" type="text/css">
+    <script src="{{ url_for('static', filename='scripts/common.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='scripts/controller.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='scripts/utilities.js') }}"></script>
+  </head>
+
+  <div class="container">
+    <div class="title">
+        <strong class="title-name">User Study on Latent Space Editing</strong>
+    </div>
+    <div class="intro">
+        <p><strong>Instructions:</strong></p>
+        <p>&nbsp; &nbsp; This study aims to evaluate the effect of our proposed <span class="bold">TransStyleGAN</span> model. It includes two tasks: (1) <span class="bold">Inversion</span> and (2) <span class="bold">Editing</span>.</p>
+        <p>&nbsp; &nbsp; In the <span class="bold">first</span> task, you will be asked to evaluate how truthfully our model could replicate the original image. In the <span class="bold">second</span> task, you will be asked to evaluate how realistically our model could modify the original image.</p>
+        <p>&nbsp; &nbsp; Please click the <span class="bold">Start</span> button to continue. </p>
+    </div>
+    <div class="foot">
+      <div class="start btn">
+        <form action="/index" method="post">
+          <button style="font-size:14px" name="name" onclick="startTask(this)">Start</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+      var startTask = function(ob) {
+          var userName = str10();
+          $(ob)[0].value = userName;
+          $(ob)[0].click();
+      }
+  </script>
+</html>

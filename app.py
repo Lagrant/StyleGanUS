@@ -11,29 +11,43 @@ log = app.logger
 
 user_name = ''
 task_cols = {'age1': [30,40,50,60],
-'age2': [30,40,50,60],
-'age3': [30,40,50,60],
-'smile1': [0],
-'smile2': [0],
-'smile3': [0],
-'transition1': [0,1,2,3],
-'transition2': [0,1,2,3],
-'transition3': [0,1,2,3],
+    'age2': [30,40,50,60],
+    'age3': [30,40,50,60],
+    'smile1': [0],
+    'smile2': [0],
+    'smile3': [0],
+    'transition1': [0,1,2,3],
+    'transition2': [0,1,2,3],
+    'transition3': [0,1,2,3],
 }
 
 @app.route('/')
-@app.route('/index')
-def index_page(name=None):
+def intro_page():
 
-    return render_template('index.html', name=name)
+    return render_template('introduction.html')
+
+@app.route('/index', methods=['POST'])
+def index_page():
+    global user_name
+    
+    user_name = request.get_data()
+    user_name = user_name.decode()
+    user_name = user_name.split('=')[-1]
+    file_path = os.path.join('./', 'users', user_name)
+    if os.path.exists(file_path):
+        return render_template('index.html')
+    
+    os.mkdir(file_path)
+
+    return render_template('index.html')
 
 @app.route('/newuser', methods=['GET'])
 def set_new_user():
     global user_name
-    user_name = request.args.get('name')
-    os.mkdir(os.path.join('./', 'users', user_name))
 
-    return Response('success', status=200)
+    user_name = ''
+
+    return render_template('introduction.html')
 
 @app.route('/task', methods=['GET'])
 def get_task():
@@ -67,3 +81,6 @@ def save_user_data():
         json.dump(json.loads(request.get_data()), f)
     
     return Response('Successfully saved user data', status=200)
+
+if (__name__=='__main__'):
+    app.run(debug=True, use_debugger=False, use_reloader=True)

@@ -162,23 +162,9 @@ var taskConfigReset = function () {
     $('#task-descrip').html('');
 }
 
-var newUser = function () {
-    var userName = str10();
-    $.ajax({
-        type: 'GET',
-        url: '/newuser?name='+userName,
-        contentType: 'application/json; charset=UTF-8',
-        success: function(res) {
-            if (res === 'success') {
-                reset();
-            } else {
-                alert('Fail to add a new user.');
-            }
-        },
-        error: function() {
-            alert('Fail to add a new user, something wrong in the server.');
-        }
-    })
+var newUser = function (ob) {
+    reset();
+    $(ob)[0].click();
 }
 
 var judgeBetter = function (better) {

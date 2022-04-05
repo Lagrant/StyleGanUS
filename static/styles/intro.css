@@ -1,0 +1,41 @@
+.container {  display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.3fr 1.5fr 1.2fr;
+    grid-auto-columns: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "title"
+      "intro"
+      "foot";
+  }
+  
+  .title { 
+      grid-area: title; 
+      text-align: center;
+    }
+  
+  .intro { grid-area: intro; }
+  
+  .foot {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.6fr 1.4fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      ". . start"
+      ". . ."
+      ". . .";
+    grid-area: foot;
+  }
+  
+  .start { grid-area: start; }
+
+  .title-name {
+      font-size: 30px;
+      text-align: center;
+    }
+
+  .bold {
+    font-weight: bold;
+  }
