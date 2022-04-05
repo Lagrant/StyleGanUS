@@ -20,7 +20,7 @@
 
   <div class="container">
     <div class="title">
-      <strong class="title-name">StyleGan Attribute Editing Study</strong>
+      <strong class="title-name">User Study on Latent Space Editing</strong>
     </div>
     <div class="panel middle-row">
       <div class="user-study-intro">
@@ -28,7 +28,9 @@
         Your task is to determine a more reasonable one according to our task.
       </div>
       <div class="task">
-        <button id="reset" class="reset-button" onclick="newUser()">New</button>
+        <form action="/newuser" method="get">
+          <button id="reset" class="reset-button" onclick="newUser(this)">New</button>
+        </form>
         <button id="reset" class="reset-button" onclick="reset()">Reset</button>
         
         <select id="task-type" name="task-type" onchange="onSelection(this)">

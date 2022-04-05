@@ -67,7 +67,11 @@
 
 .middle-row { height: 450px;}
 
-.reset-button { margin-bottom: 15px; }
+.reset-button { 
+  margin-bottom: 15px;
+  float: left;
+  margin-left: 5px;
+}
 
 .comments { grid-area: comments; }
 

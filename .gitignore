@@ -2,3 +2,4 @@ static/images/*
 __pycache__/
 users/*
 .DS_Store
+*.pptx
