@@ -1,11 +1,3 @@
-$(document).ready(function() {
-    orig_img = $('.original-image')[0];
-    alg1_img = $('.alg1')[0];
-    alg2_img = $('.alg2')[0];
-    $('#image-comments')[0].addEventListener('input', getComments);
-})
-
-
 var pivot = (function () {
     var lower = 1, upper = 1;
     var cur = upper;
@@ -73,7 +65,7 @@ var prevTask = function () {
     if (!sig) {
         return;
     }
-    taskInfo = userData[taskInfo.taskName][pivot.cur-1];
+    taskInfo = userData[pivot.cur-1];
     loadTask(taskInfo);
 }
 
@@ -81,28 +73,28 @@ var nextTask = function () {
     if (taskInfo.taskName === '' || taskCnt == taskNames.length) {
         return;
     }
-    if (pivot.cur < userData[taskInfo.taskName].length) {
-        userData[taskInfo.taskName][pivot.cur-1] = taskInfo;
-        pivot.right(userData[taskInfo.taskName].length);
-        taskInfo = userData[taskInfo.taskName][pivot.cur-1];
+    if (pivot.cur < userData.length) {
+        userData[pivot.cur-1] = taskInfo;
+        pivot.right(userData.length);
+        taskInfo = userData[pivot.cur-1];
         loadTask(taskInfo);
 
         return;
     }
 
     if (taskInfo.judge !== '') {
-        curList = userData[taskInfo.taskName];
+        curList = userData;
         if (curList.length > 0 &&
             curList[curList.length-1].taskImgs[0] === taskInfo.taskImgs[0] && 
             curList[curList.length-1].taskImgs[1] === taskInfo.taskImgs[1] &&
             curList[curList.length-1].taskImgs[2] === taskInfo.taskImgs[2]) {
 
-            userData[taskInfo.taskName][userData[taskInfo.taskName].length-1] = taskInfo;
-            pivot.right(userData[taskInfo.taskName].length+1);
+            userData[userData.length-1] = taskInfo;
+            pivot.right(userData.length+1);
         } else {
-            userData[taskInfo.taskName].push(taskInfo);
+            userData.push(taskInfo);
 
-            pivot.right(userData[taskInfo.taskName].length+1);
+            pivot.right(userData.length+1);
         }
     }
     var choices = $('#judge-better').find('input');
@@ -110,7 +102,7 @@ var nextTask = function () {
         choices[i].checked = false;
     }
     $('#image-comments')[0].value = '';
-    $('#task-count').html(userData[taskInfo.taskName].length);
+    $('#task-count').html(userData.length);
 
     if (taskImgs.length == 0) {
         taskInfo = {
@@ -128,6 +120,9 @@ var nextTask = function () {
             judge: '',
             comments: '',
         }
+        orig_img.children[0].src = '/static/' + taskInfo.taskImgs[0];
+        alg1_img.children[0].src = '/static/' + taskInfo.taskImgs[1];
+        alg2_img.children[0].src = '/static/' + taskInfo.taskImgs[2];
     }
     taskCnt++;
 }
@@ -152,9 +147,7 @@ var reset = function () {
     orig_img.children[0].src = '/static/images/none.png';
     alg1_img.children[0].src = '/static/images/none.png';
     alg2_img.children[0].src = '/static/images/none.png';
-    for (tsk in userData) {
-        userData[tsk] = [];
-    }
+    userData.length = 0;
     $('#task-type')[0].value='placehoder';
 
     taskConfigReset();
@@ -200,15 +193,15 @@ var submitTaskData = function () {
         alert('You need to specify your task first.');
         return;
     }
-    
-    curList = userData[taskInfo.taskName];
+
+    curList = userData;
     if (curList.length > 0 &&
         curList[curList.length-1].taskImgs[0] === taskInfo.taskImgs[0] && 
         curList[curList.length-1].taskImgs[1] === taskInfo.taskImgs[1] &&
         curList[curList.length-1].taskImgs[2] === taskInfo.taskImgs[2]) {
-        userData[taskInfo.taskName][userData[taskInfo.taskName].length-1] = taskInfo;
+        userData[userData.length-1] = taskInfo;
     } else if (taskInfo.judge !== '') {
-        userData[taskInfo.taskName].push(taskInfo);
+        userData.push(taskInfo);
     }
 
     $.ajax({
