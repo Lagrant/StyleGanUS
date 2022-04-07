@@ -1,7 +1,15 @@
-var userData = {age1: [], age2: [], age3: [],
-    smile1: [], smile2: [], smile13: [],
-    transition1: [], transition2: [], transition3: []}
-    
+/*
+var userData = {
+    age1: [], age2: [], age3: [], age0: [],
+    smile1: [], smile0: [],
+    inversion0: [], inversion1: [],
+    transition1: [], transition0: []
+}
+*/
+var userData = [];
+
+var taskNames = ['inversion', 'inversion', 'smile', 'smile', 'transition', 'transition', 'age', 'age', 'age', 'age'];
+
 var taskInfo = {
     taskName: '',
     taskImgs: '',
@@ -27,4 +35,6 @@ var task_descriptions = (function () {
         transition2: transition,
         transition3: transition
     }
-})()
+})();
+
+var taskImgs = undefined;

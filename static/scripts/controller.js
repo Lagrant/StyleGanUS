@@ -78,7 +78,7 @@ var prevTask = function () {
 }
 
 var nextTask = function () {
-    if (taskInfo.taskName === '') {
+    if (taskInfo.taskName === '' || taskCnt == taskNames.length) {
         return;
     }
     if (pivot.cur < userData[taskInfo.taskName].length) {
@@ -112,26 +112,38 @@ var nextTask = function () {
     $('#image-comments')[0].value = '';
     $('#task-count').html(userData[taskInfo.taskName].length);
 
-    taskInfo = {
-        taskName: taskInfo.taskName,
-        taskImgs: '',
-        judge: '',
-        comments: '',
+    if (taskImgs.length == 0) {
+        taskInfo = {
+            // taskName: taskInfo.taskName,
+            taskName: taskNames[taskCnt],
+            taskImgs: '',
+            judge: '',
+            comments: '',
+        }
+        sendTask(taskInfo.taskName, taskCnt);
+    } else {
+        taskInfo = {
+            taskName: taskNames[taskCnt],
+            taskImgs: taskImgs.pop(),
+            judge: '',
+            comments: '',
+        }
     }
-    sendTask(taskInfo.taskName, 0);
+    taskCnt++;
 }
 
-var sendTask = function (taskName, firstTime=0) {
+var sendTask = function (taskName, taskCnt=0) {
     $.ajax({
         type: 'GET',
-        url: '/task?name='+taskName+'&count='+firstTime,
+        url: '/task?name='+taskName+'&count='+taskCnt,
         contentType: 'application/json; charset=UTF-8',
         success: function(res) {
-            var taskImgs = res;
-            orig_img.children[0].src = '/static/' + taskImgs[0];
-            alg1_img.children[0].src = '/static/' + taskImgs[1];
-            alg2_img.children[0].src = '/static/' + taskImgs[2];
-            taskInfo.taskImgs = taskImgs.map((d) => d)
+            taskImgs = res;
+            orig_img.children[0].src = '/static/' + taskImgs[taskImgs.length - 1][0];
+            alg1_img.children[0].src = '/static/' + taskImgs[taskImgs.length - 1][1];
+            alg2_img.children[0].src = '/static/' + taskImgs[taskImgs.length - 1][2];
+            taskInfo.taskImgs = taskImgs[taskImgs.length - 1].map((d) => d)
+            taskImgs.pop();
         }
     })
 }
@@ -188,7 +200,7 @@ var submitTaskData = function () {
         alert('You need to specify your task first.');
         return;
     }
-    // userData[taskInfo.taskName].push(taskInfo);
+    
     curList = userData[taskInfo.taskName];
     if (curList.length > 0 &&
         curList[curList.length-1].taskImgs[0] === taskInfo.taskImgs[0] && 
