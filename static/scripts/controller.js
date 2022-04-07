@@ -44,9 +44,9 @@ var onSelection = function (ob) {
 
 var loadTask = function (taskInfo) {
     $('#task-count').html(pivot.cur);
-    orig_img.children[0].src = '/static/' + taskInfo.taskImgs[0];
-    alg1_img.children[0].src = '/static/' + taskInfo.taskImgs[1];
-    alg2_img.children[0].src = '/static/' + taskInfo.taskImgs[2];
+    orig_img.children[1].src = '/static/' + taskInfo.taskImgs[0];
+    alg1_img.children[1].src = '/static/' + taskInfo.taskImgs[1];
+    alg2_img.children[1].src = '/static/' + taskInfo.taskImgs[2];
     var choices = $('#judge-better').find('input');
     for (let i = 0; i < choices.length; i++) {
         if (choices[i].value === taskInfo.judge) {
@@ -54,7 +54,6 @@ var loadTask = function (taskInfo) {
             break;
         }
     }
-    $('#image-comments')[0].value = taskInfo.comments;
 }
 
 var prevTask = function () {
@@ -101,7 +100,6 @@ var nextTask = function () {
     for (let i = 0; i < choices.length; i++) {
         choices[i].checked = false;
     }
-    $('#image-comments')[0].value = '';
     $('#task-count').html(userData.length);
 
     if (taskImgs.length == 0) {
@@ -120,9 +118,9 @@ var nextTask = function () {
             judge: '',
             comments: '',
         }
-        orig_img.children[0].src = '/static/' + taskInfo.taskImgs[0];
-        alg1_img.children[0].src = '/static/' + taskInfo.taskImgs[1];
-        alg2_img.children[0].src = '/static/' + taskInfo.taskImgs[2];
+        orig_img.children[1].src = '/static/' + taskInfo.taskImgs[0];
+        alg1_img.children[1].src = '/static/' + taskInfo.taskImgs[1];
+        alg2_img.children[1].src = '/static/' + taskInfo.taskImgs[2];
     }
     taskCnt++;
 }
@@ -134,9 +132,9 @@ var sendTask = function (taskName, taskCnt=0) {
         contentType: 'application/json; charset=UTF-8',
         success: function(res) {
             taskImgs = res;
-            orig_img.children[0].src = '/static/' + taskImgs[taskImgs.length - 1][0];
-            alg1_img.children[0].src = '/static/' + taskImgs[taskImgs.length - 1][1];
-            alg2_img.children[0].src = '/static/' + taskImgs[taskImgs.length - 1][2];
+            orig_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][0];
+            alg1_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][1];
+            alg2_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][2];
             taskInfo.taskImgs = taskImgs[taskImgs.length - 1].map((d) => d)
             taskImgs.pop();
         }
@@ -144,11 +142,10 @@ var sendTask = function (taskName, taskCnt=0) {
 }
 
 var reset = function () {
-    orig_img.children[0].src = '/static/images/none.png';
-    alg1_img.children[0].src = '/static/images/none.png';
-    alg2_img.children[0].src = '/static/images/none.png';
+    orig_img.children[1].src = '/static/images/none.png';
+    alg1_img.children[1].src = '/static/images/none.png';
+    alg2_img.children[1].src = '/static/images/none.png';
     userData.length = 0;
-    $('#task-type')[0].value='placehoder';
 
     taskConfigReset();
 }
@@ -157,7 +154,6 @@ var taskConfigReset = function () {
     for (info in taskInfo) {
         taskInfo[info] = '';
     }
-    $('#image-comments')[0].value = '';
     $('#task-count').html(0);
     var choices = $('#judge-better').find('input');
     for (let i = 0; i < choices.length; i++) {
@@ -165,11 +161,6 @@ var taskConfigReset = function () {
     }
     pivot.reset();
     $('#task-descrip').html('');
-}
-
-var newUser = function (ob) {
-    reset();
-    $(ob)[0].click();
 }
 
 var judgeBetter = function (better) {

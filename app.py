@@ -40,6 +40,16 @@ task_cols = {
     'transition2': [0],
 }
 
+task_names = {
+    'smile': '2-1: Expression Editing',
+    'age': '2-2: Age Editing',
+    'transition': '2-3: Gender Edition'
+}
+
+task_descriptions = {
+    'smile': 'This is the <strong>first part</strong> of <strong>Task 2</strong>. The target attribute for this part is <span style="font-weight: bold; color: red;">facial expression</span>. The models are trained to modify the original image to <strong>a smiling face</strong> without changing other attributes. Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks <strong>more realistic<strong> after editing. '
+}
+
 @app.route('/')
 def intro_page():
 
@@ -54,11 +64,11 @@ def index_page():
     user_name = user_name.split('=')[-1]
     file_path = os.path.join('./', 'users', user_name)
     if os.path.exists(file_path):
-        return render_template('index.html', taskCnt=0, description='Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks more identical to the original image.')
+        return render_template('index.html', taskCnt=0, task='1: Inversion', question='Which image on the right do you think looks more identical to the image on the left? ', description='Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks more identical to the original image.')
     
     os.mkdir(file_path)
 
-    return render_template('index.html', taskCnt=0, description='Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks more identical to the original image.')
+    return render_template('index.html', taskCnt=0, task='1: Inversion', question='Which image on the right do you think looks more identical to the image on the left? ', description='Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks more identical to the original image.')
 
 @app.route('/newuser', methods=['GET'])
 def set_new_user():
