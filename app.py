@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Flask, render_template, request, flash, Request, url_for, redirect, jsonify
 import json
 from werkzeug import Response
@@ -49,7 +50,9 @@ task_names = {
 
 task_descriptions = {
     'inversion': '&nbsp; &nbsp; Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks <strong>more identical</strong> to the original image.',
-    'smile': '&nbsp; &nbsp; This is the <strong>first part</strong> of <strong>Task 2</strong>. The target attribute for this part is <span style="font-weight: bold; color: red;">facial expression</span>. The models are trained to modify the original image to <strong>a smiling face</strong> without changing other attributes. Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks <strong>more realistic<strong> after editing. '
+    'smile': '&nbsp; &nbsp; This is the <strong>first part</strong> of <strong>Task 2</strong>. The target attribute for this part is <span style="font-weight: bold; color: red;">facial expression</span>. The models are trained to modify the original image to <strong>a smiling face</strong> without changing other attributes. Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks <strong>more realistic<strong> after editing. ',
+    'age': '',
+    'transition': ''
 }
 
 @app.route('/')
@@ -116,6 +119,11 @@ def random_generator(task_name, img_idx):
     rand01 = random.randint(0,1)
 
     return [tasks[rand01], tasks[1-rand01]]
+
+@app.route('/thanks', methods=['POST', 'GET'])
+def end():
+
+    return render_template('thanks.html')
 
 @app.route('/saveuserdata', methods=['POST'])
 def save_user_data():

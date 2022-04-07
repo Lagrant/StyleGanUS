@@ -29,15 +29,7 @@
     </div>
     <div id="task-descrip">
       <p id="task-name"><strong>{{ task }}</strong></p>
-      <p id="task-details">
-        <!-- <script>
-          var description = "{{ description }}"
-          description = description.replaceAll('&lt;', '<');
-          description = description.replaceAll('&gt;', '>');
-          description = description.replaceAll('&#34;', '"');
-          description = '&nbsp; &nbsp; ' + description;
-          $("#task-descrip").append(description);
-        </script> -->
+      <p id="task-details" style="width: 900px;">
       </p>
       <p>&nbsp; &nbsp; Please click the <strong>Next</strong> button to continue</p>
     </div>
@@ -50,8 +42,8 @@
       <div class="selections" style="width: 106px;">
         Which is better
         <form id="judge-better">
-          <input type="radio" name="judge" id="judge1" value="left" onclick="judgeBetter(this.value)"> <label for="judge1">Model 1</label><br>
-          <input type="radio" name="judge" id="judge2" value="right" onclick="judgeBetter(this.value)"> <label for="judge2">Model 2</label><br>
+          <input type="radio" name="judge" id="judge1" value="model1" onclick="judgeBetter(this.value)"> <label for="judge1">Model 1</label><br>
+          <input type="radio" name="judge" id="judge2" value="model2" onclick="judgeBetter(this.value)"> <label for="judge2">Model 2</label><br>
         </form>
       </div>
       <div class="alg1 image">
@@ -90,6 +82,6 @@
     taskCnt = parseInt("{{taskCnt}}");
     taskInfo.taskName = 'inversion';
     sendTask(taskInfo.taskName, taskCnt);
-    taskCnt++;
+    // taskCnt++;
   </script>
 </html>

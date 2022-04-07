@@ -69,9 +69,10 @@ var prevTask = function () {
 }
 
 var nextTask = function () {
-    if (taskInfo.taskName === '' || taskCnt == taskNames.length) {
+    if (taskInfo.taskName === '' || taskInfo.judge === '') {
         return;
     }
+    
     if (pivot.cur < userData.length) {
         userData[pivot.cur-1] = taskInfo;
         pivot.right(userData.length);
@@ -81,34 +82,41 @@ var nextTask = function () {
         return;
     }
 
-    if (taskInfo.judge !== '') {
-        curList = userData;
-        if (curList.length > 0 &&
-            curList[curList.length-1].taskImgs[0] === taskInfo.taskImgs[0] && 
-            curList[curList.length-1].taskImgs[1] === taskInfo.taskImgs[1] &&
-            curList[curList.length-1].taskImgs[2] === taskInfo.taskImgs[2]) {
+    curList = userData;
+    if (curList.length > 0 &&
+        curList[curList.length-1].taskImgs[0] === taskInfo.taskImgs[0] && 
+        curList[curList.length-1].taskImgs[1] === taskInfo.taskImgs[1] &&
+        curList[curList.length-1].taskImgs[2] === taskInfo.taskImgs[2]) {
 
-            userData[userData.length-1] = taskInfo;
-            pivot.right(userData.length+1);
-        } else {
-            userData.push(taskInfo);
-
-            pivot.right(userData.length+1);
-        }
+        userData[userData.length-1] = taskInfo;
+    } else {
+        userData.push(taskInfo);
+        taskCnt++;
     }
-    var choices = $('#judge-better').find('input');
-    for (let i = 0; i < choices.length; i++) {
-        choices[i].checked = false;
-    }
-    $('#task-count').html(userData.length);
 
+    if (taskCnt == taskNames.length) {
+        downloadUserData();
+        $.ajax({
+            url: '/saveuserdata',
+            type: 'POST',
+            data: JSON.stringify(userData),
+            contentType: 'application/json; charset=UTF-8',
+            success: function () {
+                window.location.replace('/thanks');
+            },
+            error: function () {
+                alert('Fail to end.');
+            }
+        });
+        
+        return;
+    }
     if (taskImgs.length == 0) {
         taskInfo = {
             // taskName: taskInfo.taskName,
             taskName: taskNames[taskCnt],
             taskImgs: '',
             judge: '',
-            comments: '',
         }
         sendTask(taskInfo.taskName, taskCnt);
     } else {
@@ -116,13 +124,19 @@ var nextTask = function () {
             taskName: taskNames[taskCnt],
             taskImgs: taskImgs.pop(),
             judge: '',
-            comments: '',
         }
         orig_img.children[1].src = '/static/' + taskInfo.taskImgs[0];
         alg1_img.children[1].src = '/static/' + taskInfo.taskImgs[1];
         alg2_img.children[1].src = '/static/' + taskInfo.taskImgs[2];
     }
-    taskCnt++;
+    
+    pivot.right(userData.length+1);
+    
+    var choices = $('#judge-better').find('input');
+    for (let i = 0; i < choices.length; i++) {
+        choices[i].checked = false;
+    }
+    $('#task-count').html(userData.length);
 }
 
 var sendTask = function (taskName, taskCnt=0) {
@@ -182,6 +196,7 @@ var judgeBetter = function (better) {
     taskInfo.judge = better;
 }
 
+/*
 var getComments = function (event) {
     if (taskInfo.taskName === '') {
         alert('You need to specify your task first.');
@@ -189,6 +204,7 @@ var getComments = function (event) {
     }
     taskInfo.comments = event.target.value;
 }
+*/
 
 var submitTaskData = function () {
     if (taskInfo.taskName === '') {

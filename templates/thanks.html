@@ -13,34 +13,25 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/intro.css') }}" type="text/css">
-    <script src="{{ url_for('static', filename='scripts/common.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='scripts/common.js') }}"></script> -->
     <script src="{{ url_for('static', filename='scripts/utilities.js') }}"></script>
   </head>
-
   <div class="title">
     <strong class="title-name">User Study on Latent Space Editing</strong>
   </div>
-  <div class="container">
-    
-    <div class="intro">
-        <p><strong>Instructions:</strong></p>
-        <p>&nbsp; &nbsp; This study aims to evaluate the effect of our proposed <span class="bold">TransStyleGAN</span> model. It includes two tasks: (1) <span class="bold">Inversion</span> and (2) <span class="bold">Editing</span>.</p>
-        <p>&nbsp; &nbsp; In the <span class="bold">first</span> task, you will be asked to evaluate how truthfully our model could replicate the original image. In the <span class="bold">second</span> task, you will be asked to evaluate how realistically our model could modify the original image.</p>
-        <p>&nbsp; &nbsp; Please click the <span class="bold">Start</span> button to continue. </p>
+    <div style="text-align: center; margin-top: 50px; font-size: 30px;">
+        <p>&nbsp; &nbsp; Congratulation! You have successfully completed all tasks in this user study.</p>
+        <p>&nbsp; &nbsp; Thank you for participating in our user study! </p>
+        <!-- <p>&nbsp; &nbsp; Please click the <span class="bold">Exit</span> button to exit. </p> -->
     </div>
-    <div class="foot">
-      <div class="start btn">
-        <form action="/index" method="post">
-          <button style="font-size:14px" name="name" onclick="startTask(this)">Start</button>
-        </form>
+    <!-- <div class="foot">
+      <div class="submission">
+          <button id="submit-data" style="font-size:14px" name="name" onclick="exitPage()">Exit</button>
       </div>
-    </div>
-  </div>
-
-  <script>
-      var startTask = function(ob) {
-          var userName = str10();
-          $(ob)[0].value = userName;
+    </div> -->
+  <!-- <script>
+      var exitPage = function () {
+        close();
       }
-  </script>
+  </script> -->
 </html>

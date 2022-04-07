@@ -14,7 +14,6 @@ var taskInfo = {
     taskName: '',
     taskImgs: '',
     judge: '',
-    comments: '',
 }
 
 var task_descriptions = (function () {
