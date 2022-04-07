@@ -41,13 +41,15 @@ task_cols = {
 }
 
 task_names = {
-    'smile': '2-1: Expression Editing',
-    'age': '2-2: Age Editing',
-    'transition': '2-3: Gender Edition'
+    'inversion': '<strong>Task 1: Inversion</strong>',
+    'smile': '<strong>Task 2-1: Expression Editing</strong>',
+    'age': '<strong>Task 2-2: Age Editing</strong>',
+    'transition': '<strong>Task 2-3: Gender Edition</strong>'
 }
 
 task_descriptions = {
-    'smile': 'This is the <strong>first part</strong> of <strong>Task 2</strong>. The target attribute for this part is <span style="font-weight: bold; color: red;">facial expression</span>. The models are trained to modify the original image to <strong>a smiling face</strong> without changing other attributes. Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks <strong>more realistic<strong> after editing. '
+    'inversion': '&nbsp; &nbsp; Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks <strong>more identical</strong> to the original image.',
+    'smile': '&nbsp; &nbsp; This is the <strong>first part</strong> of <strong>Task 2</strong>. The target attribute for this part is <span style="font-weight: bold; color: red;">facial expression</span>. The models are trained to modify the original image to <strong>a smiling face</strong> without changing other attributes. Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks <strong>more realistic<strong> after editing. '
 }
 
 @app.route('/')
@@ -64,11 +66,11 @@ def index_page():
     user_name = user_name.split('=')[-1]
     file_path = os.path.join('./', 'users', user_name)
     if os.path.exists(file_path):
-        return render_template('index.html', taskCnt=0, task='1: Inversion', question='Which image on the right do you think looks more identical to the image on the left? ', description='Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks more identical to the original image.')
+        return render_template('index.html', taskCnt=0, task='Task 1: Inversion', question='Which image on the right do you think looks more identical to the image on the left? ', description='Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks more identical to the original image.')
     
     os.mkdir(file_path)
 
-    return render_template('index.html', taskCnt=0, task='1: Inversion', question='Which image on the right do you think looks more identical to the image on the left? ', description='Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks more identical to the original image.')
+    return render_template('index.html', taskCnt=0, task='Task 1: Inversion', question='Which image on the right do you think looks more identical to the image on the left? ', description='Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks more identical to the original image.')
 
 @app.route('/newuser', methods=['GET'])
 def set_new_user():
@@ -92,7 +94,9 @@ def get_task():
         task_file.extend(random_generator(task_name + str(set_idx), img_idx))
         task_files.append(task_file)
     
-    return jsonify(task_files)
+    # question = '&nbsp; &nbsp; which you think looks <strong>more realistic</strong> after editing?' if task_name != 'inversion' else '&nbsp; &nbsp; Which image on the right do you think looks more identical to the image on the left? '
+    task_words = [task_names[task_name], task_descriptions[task_name]]
+    return jsonify({'files': task_files, 'descriptions': task_words})
 
 def shuffle_order(lst):
     random.shuffle(lst)

@@ -131,12 +131,23 @@ var sendTask = function (taskName, taskCnt=0) {
         url: '/task?name='+taskName+'&count='+taskCnt,
         contentType: 'application/json; charset=UTF-8',
         success: function(res) {
-            taskImgs = res;
+            taskImgs = res['files'];
             orig_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][0];
             alg1_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][1];
             alg2_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][2];
             taskInfo.taskImgs = taskImgs[taskImgs.length - 1].map((d) => d)
             taskImgs.pop();
+
+            var descrips = res['descriptions'];
+            // descrips = descrips.map(function (d) {
+            //     d = d.replaceAll('&lt;', '<');
+            //     d = d.replaceAll('&gt;', '>');
+            //     d = d.replaceAll('&#34;', '"');
+            //     d = '&nbsp; &nbsp; ' + d;
+            // });
+            $('#task-name').html(descrips[0]);
+            $('#task-details').html(descrips[1]);
+            // $('#task-question').html(descrips[2]);
         }
     })
 }
