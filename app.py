@@ -1,4 +1,3 @@
-from crypt import methods
 from flask import Flask, render_template, request, flash, Request, url_for, redirect, jsonify
 import json
 from werkzeug import Response
