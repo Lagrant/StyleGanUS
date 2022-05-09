@@ -1,4 +1,3 @@
-from crypt import methods
 from flask import Flask, render_template, request, flash, Request, url_for, redirect, jsonify
 import json
 from werkzeug import Response
@@ -12,21 +11,24 @@ log = app.logger
 
 user_name = ''
 task_set = {
-    'inversion': [3, 1, 2], # size of task set, number of images each task set has, number of task that user study needs, 
+    'inversion': [12, 1, 2], # size of task set, number of images each task set has (orig, w, w+ and w++), number of tasks that user study needs, 
     'age': [12, 4, 4],
     'smile': [6, 1, 2],
     'transition': [3, 1, 2]
-}
-task_set_size = {
-    'inversion': 3,
-    'age': 3,
-    'smile': 6,
-    'transition': 3
 }
 task_cols = {
     'inversion0': [0],
     'inversion1': [0],
     'inversion2': [0],
+    'inversion3': [0],
+    'inversion4': [0],
+    'inversion5': [0],
+    'inversion6': [0],
+    'inversion7': [0],
+    'inversion8': [0],
+    'inversion9': [0],
+    'inversion10': [0],
+    'inversion11': [0],
     'age0': [30,40,50,60],
     'age1': [30,40,50,60],
     'age2': [40,50,60,70],
@@ -51,8 +53,8 @@ task_names = {
 task_descriptions = {
     'inversion': '&nbsp; &nbsp; Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks <strong>more identical</strong> to the original image.',
     'smile': '&nbsp; &nbsp; This is the <strong>first part</strong> of <strong>Task 2</strong>. The target attribute for this part is <span style="font-weight: bold; color: red;">facial expression</span>. The models are trained to modify the original image to <strong>a smiling face</strong> without changing other attributes. Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks <strong>more realistic<strong> after editing. ',
-    'age': '',
-    'transition': ''
+    'age': '&nbsp; &nbsp; This is the <strong>second part</strong> of <strong>Task 2</strong>. The target attribute for this part is <span style="font-weight: bold; color: red;">age</span>. The models are trained to modify the original person to a <strong>different age</strong> without changing other attributes.',
+    'transition': '&nbsp; &nbsp; This is the <strong>third part</strong> of <strong>Task 2</strong>. The target attribute for this part is <span style="font-weight: bold; color: red;">gender</span>. The models are trained to modify the original person to <strong>the opposite gender</strong> without changing other attributes.'
 }
 
 @app.route('/')
