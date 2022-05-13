@@ -11,36 +11,10 @@ log = app.logger
 
 user_name = ''
 task_set = {
-    'inversion': [12, 1, 3], # size of task set, number of images each task set has (orig, w, w+ and w++), number of tasks that user study needs, 
-    'age': [3, 1, 3],
-    'smile': [6, 1, 2],
-    'transition': [3, 1, 2]
-}
-task_cols = {
-    'inversion0': [0],
-    'inversion1': [0],
-    'inversion2': [0],
-    'inversion3': [0],
-    'inversion4': [0],
-    'inversion5': [0],
-    'inversion6': [0],
-    'inversion7': [0],
-    'inversion8': [0],
-    'inversion9': [0],
-    'inversion10': [0],
-    'inversion11': [0],
-    'age0': [60],
-    'age1': [60],
-    'age2': [60],
-    'smile0': [0],
-    'smile1': [0],
-    'smile2': [0],
-    'smile3': [0],
-    'smile4': [0],
-    'smile5': [0],
-    'transition0': [0],
-    'transition1': [0],
-    'transition2': [0],
+    'inversion': [12, 3], # size of task set, number of images each task set has (orig, w, w+ and w++), number of tasks that user study needs, 
+    'age': [3, 3],
+    'smile': [6, 2],
+    'transition': [3, 2]
 }
 
 task_names = {
@@ -91,12 +65,10 @@ def get_task():
     first = int(request.args.get('count'))  # if it's the first task, if so, the task should be inversion
     # task_files = ['images/' + task_name + '/orig.png']
     task_files = []
-    order_lst = shuffle_order(list(range(task_set[task_name][0])))[:task_set[task_name][2]]
+    order_lst = shuffle_order(list(range(task_set[task_name][0])))[:task_set[task_name][1]]
     for i in order_lst:
-        set_idx = i // task_set[task_name][1]
-        img_idx = i % task_set[task_name][1]
-        task_file = ['images/' + task_name + str(set_idx) + '/orig.png']
-        task_file.extend(random_generator(task_name + str(set_idx), img_idx))
+        task_file = ['images/' + task_name + str(i) + '/orig.png']
+        task_file.extend(random_generator(task_name + str(i)))
         task_files.append(task_file)
     
     # question = '&nbsp; &nbsp; which you think looks <strong>more realistic</strong> after editing?' if task_name != 'inversion' else '&nbsp; &nbsp; Which image on the right do you think looks more identical to the image on the left? '
@@ -108,15 +80,13 @@ def shuffle_order(lst):
 
     return lst
 
-def random_generator(task_name, img_idx):
+def random_generator(task_name):
     algs = ['w', 'w+']
     for i in range(10):
         rand10 = random.randint(0,1)
     comp_alg = algs[rand10]
     
-    # col = random.randint(0,len(task_cols[task_name])-1)
-    col = task_cols[task_name][img_idx]
-    tasks = ['images/' + task_name+'/'+comp_alg+'_'+str(col)+'.png', 'images/' + task_name+'/w++_'+str(col)+'.png']
+    tasks = ['images/' + task_name+'/'+comp_alg+'.png', 'images/' + task_name+'/w++.png']
 
     rand01 = random.randint(0,1)
 
