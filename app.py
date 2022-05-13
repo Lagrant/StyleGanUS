@@ -11,8 +11,8 @@ log = app.logger
 
 user_name = ''
 task_set = {
-    'inversion': [12, 1, 2], # size of task set, number of images each task set has (orig, w, w+ and w++), number of tasks that user study needs, 
-    'age': [12, 4, 4],
+    'inversion': [12, 1, 3], # size of task set, number of images each task set has (orig, w, w+ and w++), number of tasks that user study needs, 
+    'age': [3, 1, 3],
     'smile': [6, 1, 2],
     'transition': [3, 1, 2]
 }
@@ -29,9 +29,9 @@ task_cols = {
     'inversion9': [0],
     'inversion10': [0],
     'inversion11': [0],
-    'age0': [30,40,50,60],
-    'age1': [30,40,50,60],
-    'age2': [40,50,60,70],
+    'age0': [60],
+    'age1': [60],
+    'age2': [60],
     'smile0': [0],
     'smile1': [0],
     'smile2': [0],

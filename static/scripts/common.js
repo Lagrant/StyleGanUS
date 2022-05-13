@@ -8,7 +8,7 @@ var userData = {
 */
 var userData = [];
 
-var taskNames = ['inversion', 'inversion', 'smile', 'smile', 'age', 'age', 'age', 'age', 'transition', 'transition'];
+var taskNames = ['inversion', 'inversion', 'inversion', 'smile', 'smile', 'age', 'age', 'age', 'transition', 'transition'];
 
 var taskInfo = {
     taskName: '',
