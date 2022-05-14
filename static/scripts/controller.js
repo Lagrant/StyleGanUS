@@ -33,15 +33,6 @@ var pivot = (function () {
     }
 })();
 
-var onSelection = function (ob) {
-    taskConfigReset();
-
-    var taskOb = $(ob)[0];
-    taskInfo.taskName = taskOb.options[taskOb.selectedIndex].value;
-    $('#task-descrip').html(task_descriptions[taskInfo.taskName]);
-    sendTask(taskInfo.taskName, 1);
-}
-
 var loadTask = function (taskInfo) {
     $('#task-count').html(pivot.cur);
     orig_img.children[1].src = '/static/' + taskInfo.taskImgs[0];
@@ -140,30 +131,17 @@ var nextTask = function () {
 }
 
 var sendTask = function (taskName, taskCnt=0) {
-    $.ajax({
-        type: 'GET',
-        url: '/task?name='+taskName+'&count='+taskCnt,
-        contentType: 'application/json; charset=UTF-8',
-        success: function(res) {
-            taskImgs = res['files'];
-            orig_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][0];
-            alg1_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][1];
-            alg2_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][2];
-            taskInfo.taskImgs = taskImgs[taskImgs.length - 1].map((d) => d)
-            taskImgs.pop();
+    var res = getTask(taskName);
+    taskImgs = res['files'];
+    orig_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][0];
+    alg1_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][1];
+    alg2_img.children[1].src = '/static/' + taskImgs[taskImgs.length - 1][2];
+    taskInfo.taskImgs = taskImgs[taskImgs.length - 1].map((d) => d)
+    taskImgs.pop();
 
-            var descrips = res['descriptions'];
-            // descrips = descrips.map(function (d) {
-            //     d = d.replaceAll('&lt;', '<');
-            //     d = d.replaceAll('&gt;', '>');
-            //     d = d.replaceAll('&#34;', '"');
-            //     d = '&nbsp; &nbsp; ' + d;
-            // });
-            $('#task-name').html(descrips[0]);
-            $('#task-details').html(descrips[1]);
-            // $('#task-question').html(descrips[2]);
-        }
-    })
+    var descrips = res['descriptions'];
+    $('#task-name').html(descrips[0]);
+    $('#task-details').html(descrips[1]);
 }
 
 var reset = function () {
@@ -195,16 +173,6 @@ var judgeBetter = function (better) {
     }
     taskInfo.judge = better;
 }
-
-/*
-var getComments = function (event) {
-    if (taskInfo.taskName === '') {
-        alert('You need to specify your task first.');
-        return;
-    }
-    taskInfo.comments = event.target.value;
-}
-*/
 
 var submitTaskData = function () {
     if (taskInfo.taskName === '') {
