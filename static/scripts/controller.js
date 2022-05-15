@@ -12,7 +12,7 @@ var pivot = (function () {
                 return false;
             } else {
                 cur -= 1;
-                $('#task-count').html(cur);
+                $('#task-count').html(cur+1);
                 return true;
             }
         },
@@ -22,7 +22,7 @@ var pivot = (function () {
                 return false;
             } else {
                 cur += 1;
-                $('#task-count').html(cur);
+                $('#task-count').html(cur+1);
                 return true;
             }
         },
@@ -34,7 +34,7 @@ var pivot = (function () {
 })();
 
 var loadTask = function (taskInfo) {
-    $('#task-count').html(pivot.cur);
+    $('#task-count').html(pivot.cur+1);
     orig_img.children[1].src = '/static/' + taskInfo.taskImgs[0];
     alg1_img.children[1].src = '/static/' + taskInfo.taskImgs[1];
     alg2_img.children[1].src = '/static/' + taskInfo.taskImgs[2];
@@ -127,7 +127,7 @@ var nextTask = function () {
     for (let i = 0; i < choices.length; i++) {
         choices[i].checked = false;
     }
-    $('#task-count').html(userData.length);
+    $('#task-count').html(userData.length+1);
 }
 
 var sendTask = function (taskName, taskCnt=0) {
@@ -157,7 +157,7 @@ var taskConfigReset = function () {
     for (info in taskInfo) {
         taskInfo[info] = '';
     }
-    $('#task-count').html(0);
+    $('#task-count').html(1);
     var choices = $('#judge-better').find('input');
     for (let i = 0; i < choices.length; i++) {
         choices[i].checked = false;
