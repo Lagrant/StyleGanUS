@@ -38,8 +38,8 @@ function getTask(task_name) {
     var task_files = [];
     var order_lst = shuffle(Array.from(Array(task_set[task_name][0]), (_, i) => i)).slice(0, task_set[task_name][1])
     for (let i = 0; i < order_lst.length; i++) {
-        var task_file = ['images/' + task_name + i.toString() + '/orig.png'];
-        task_file = task_file.concat(random_generator(task_name + i.toString()))
+        var task_file = ['images/' + task_name + order_lst[i].toString() + '/orig.png'];
+        task_file = task_file.concat(random_generator(task_name + order_lst[i].toString()))
         task_files.push(task_file);
     }
     var task_words = [task_names[task_name], task_descriptions[task_name]];

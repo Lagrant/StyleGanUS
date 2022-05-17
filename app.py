@@ -9,7 +9,6 @@ import string
 app = Flask(__name__)
 log = app.logger
 
-user_name = ''
 task_set = {
     'inversion': [12, 3], # size of task set, number of images each task set has (orig, w, w+ and w++), number of tasks that user study needs, 
     'age': [3, 3],
@@ -38,26 +37,16 @@ def intro_page():
 
 @app.route('/index', methods=['POST'])
 def index_page():
-    global user_name
+    # global user_name
     
-    user_name = request.get_data()
-    user_name = user_name.decode()
-    user_name = user_name.split('=')[-1]
-    file_path = os.path.join('./', 'users', user_name)
-    if os.path.exists(file_path):
-        return render_template('index.html', taskCnt=0, task='Task 1: Inversion', question='Which image on the right do you think looks more identical to the image on the left? ', description='Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks more identical to the original image.')
-    
-    os.mkdir(file_path)
+    # user_name = request.get_data()
+    # user_name = user_name.decode()
+    # user_name = user_name.split('=')[-1]
+    # file_path = os.path.join('./', 'users', user_name)
+    # if not os.path.exists(file_path):
+    #     os.mkdir(file_path)
 
     return render_template('index.html', taskCnt=0, task='Task 1: Inversion', question='Which image on the right do you think looks more identical to the image on the left? ', description='Among these two images, you are expected to select <span style="font-weight: bold; color: red;">One And Only One</span> image which you think looks more identical to the original image.')
-
-@app.route('/newuser', methods=['GET'])
-def set_new_user():
-    global user_name
-
-    user_name = ''
-
-    return render_template('introduction.html')
 
 @app.route('/task', methods=['GET'])
 def get_task():
@@ -101,7 +90,7 @@ def end():
 def save_user_data():
     S = 10
     file_name = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S)) + '.json'
-    with open(os.path.join('./users', user_name, file_name), 'w') as f:    
+    with open(os.path.join('./users', file_name), 'w') as f:    
         json.dump(json.loads(request.get_data()), f)
     
     return Response('Successfully saved user data', status=200)
