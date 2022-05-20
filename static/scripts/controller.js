@@ -86,7 +86,6 @@ var nextTask = function () {
     }
 
     if (taskCnt == taskNames.length) {
-        downloadUserData();
         $.ajax({
             url: '/saveuserdata',
             type: 'POST',
@@ -99,6 +98,7 @@ var nextTask = function () {
                 alert('Fail to end.');
             }
         });
+        downloadUserData();
         
         return;
     }
