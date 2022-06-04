@@ -1,5 +1,5 @@
 static/images/*
 __pycache__/
-users/*
+namedusers/
 .DS_Store
 *.pptx
